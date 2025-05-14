@@ -166,3 +166,13 @@ cython_debug/
 .env
 /outputs/
 models/__pycache__/
+models/__pycache__/__init__.cpython-312.pyc
+models/__pycache__/active_event_key.cpython-312.pyc
+models/__pycache__/data_validation.cpython-312.pyc
+models/__pycache__/match_averages.cpython-312.pyc
+models/__pycache__/match_schedule.cpython-312.pyc
+models/__pycache__/matchdata.cpython-312.pyc
+models/__pycache__/pitscoutrecord.cpython-312.pyc
+models/__pycache__/superscoutrecord.cpython-312.pyc
+models/__pycache__/team_at_event.cpython-312.pyc
+models/__pycache__/team_record.cpython-312.pyc
