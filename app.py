@@ -15,6 +15,8 @@ ALL_TEAMS_URL = "https://www.thebluealliance.com/api/v3/teams/{page_num}/simple"
 MATCH_SCHEDULE_URL = "https://www.thebluealliance.com/api/v3/event/{event_key}/matches/simple"
 EVENT_TEAMS_URL = "https://www.thebluealliance.com/api/v3/event/{event_key}/teams/simple"
 PING_URL = "https://www.thebluealliance.com/api/v3/status"
+YOUTUBE_LINK = "https://www.youtube.com/embed/{youtube_key}"
+MATCH_SPECIFIC_LINK = "https://www.thebluealliance.com/api/v3/match/{event_key}_qm{match_number}"
 
 MAX_TEAM_NUMBER_LENGTH=5 
 
@@ -153,6 +155,18 @@ def getMatchPreviewDetailed(matchNo, matchLevel):
     blue3record = TeamRecord.query.filter_by(teamNumber=match.blue3).first()
     tn = TeamNames(red1record, red2record, red3record, blue1record, blue2record, blue3record)
     return render_template("match_preview.html", match=match, red1=red1Matches, red2=red2Matches, red3=red3Matches, blue1=blue1Matches, blue2=blue2Matches, blue3=blue3Matches, tn=tn, simple = False)
+
+@app.route("/scoutMatch/<matchNo>")
+def getScoutMatch(matchNo):
+    match: MatchSchedule = MatchSchedule.query.filter_by(eventKey=getActiveEventKey(), matchNumber=matchNo, matchLevel="qm").first_or_404()
+    red1record = TeamRecord.query.filter_by(teamNumber=match.red1).first()
+    red2record = TeamRecord.query.filter_by(teamNumber=match.red2).first()
+    red3record = TeamRecord.query.filter_by(teamNumber=match.red3).first()
+    blue1record = TeamRecord.query.filter_by(teamNumber=match.blue1).first()
+    blue2record = TeamRecord.query.filter_by(teamNumber=match.blue2).first()
+    blue3record = TeamRecord.query.filter_by(teamNumber=match.blue3).first()
+    tn = TeamNames(red1record, red2record, red3record, blue1record, blue2record, blue3record)
+    return render_template("youtube_match_scout.html", match=match, red1=[], red2=[], red3=[], blue1=[], blue2=[], blue3=[], tn=tn, simple = True)
 
 @app.route("/matchPreview/<matchNo>/<matchLevel>/simple")
 def getMatchPreviewSimple(matchNo, matchLevel):

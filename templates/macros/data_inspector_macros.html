@@ -1,4 +1,4 @@
-{% macro teamInMatch(match, team, eventKey) %}
+{% macro teamInMatch(match, team, eventKey, isRed) %}
     {% if match.checkIfTeamScouted(team) %}
     <td class="table-success">
         <a href="/teamMatchBreakdown/{{team}}/{{eventKey}}/{{match.matchNumber}}/{{match.matchLevel}}">
@@ -7,31 +7,41 @@
     </td>
     {% elif match.checkIsScouted() %}
     <td class="table-warning">{{team}}</td>
-    {% elif match.checkIfTeamHasPlayedMatch(team) %}
-        <td class="table-default">
+    {% else %}
+        {% if isRed == True %}
+            <td class="table-danger">
+        {% else %}
+            <td class="table-info">
+        {% endif %}
+        {% if match.checkIfTeamHasPlayedMatch(team) %}
             <a href="/teamBreakdown/{{team}}">
             {{team}}        
             </a>
+        {% else %}
+            {{team}}
+        {% endif %}
         </td>
-    {% else %}
-        <td class="table-secondary">{{team}}</td>
-    {% endif %}
+        {% endif %}
 {% endmacro %}
 {% macro matchRow(match, eventKey) %}
 <tr>
     {% if match.checkIsScouted() %}
-        <th scope="row"><a href="/matchBreakdown/{{match.matchNumber}}/{{match.matchLevel}}">{{match.matchNumber}}</a></div>
-    {% elif match.checkIfCanBePreviewed() %}
-        <th scope="row">{{match.matchNumber}}: <a href="/matchPreview/{{match.matchNumber}}/{{match.matchLevel}}/simple">Preview</a></div>
+        <th scope="row" class="text-end"><a href="/matchBreakdown/{{match.matchNumber}}/{{match.matchLevel}}">{{match.matchNumber}}</a></th>
     {% else %}
-        <th scope="row">{{match.matchNumber}}</div>
+        <th scope="row" class="text-end">{{match.matchNumber}}</th>
     {% endif %}
-    {{teamInMatch(match, match.red1, eventKey)}}
-    {{teamInMatch(match, match.red2, eventKey)}}
-    {{teamInMatch(match, match.red3, eventKey)}}
-    {{teamInMatch(match, match.blue1, eventKey)}}
-    {{teamInMatch(match, match.blue2, eventKey)}}
-    {{teamInMatch(match, match.blue3, eventKey)}}
+    {% if match.checkIfCanBePreviewed() %}
+        <th scope="row"><a href="/matchPreview/{{match.matchNumber}}/{{match.matchLevel}}/simple">Preview</a></th>
+    {% else %}
+        <th scope="row"></th>
+    {% endif %}
+    <th scope="row"><a href="/scoutMatch/{{match.matchNumber}}">Scout</a></th>
+    {{teamInMatch(match, match.red1, eventKey, True)}}
+    {{teamInMatch(match, match.red2, eventKey, True)}}
+    {{teamInMatch(match, match.red3, eventKey, True)}}
+    {{teamInMatch(match, match.blue1, eventKey, False)}}
+    {{teamInMatch(match, match.blue2, eventKey, False)}}
+    {{teamInMatch(match, match.blue3, eventKey, False)}}
 
 </tr>
 {% endmacro %}
@@ -39,7 +49,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Match Number</th>
+                <th scope="col" class="text-end">Match Number</th>
+                <th scope="col">Previews</th>
+                <th scope="col">Scout</th>
                 <th scope="col">Red 1</th>
                 <th scope="col">Red 2</th>
                 <th scope="col">Red 3</th>
@@ -54,4 +66,24 @@
         {% endfor %}
     </tbody>
 </table>
+{% endmacro %}
+{% macro teamInYoutubeMatch(team, isRed) %}
+        {% if isRed == True %}
+            <td class="table-danger text-center">
+        {% else %}
+            <td class="table-info text-center">
+        {% endif %}
+        {{team}}
+        </td>
+{% endmacro %}
+{% macro teamIsScouted(match, team) %}
+{% if match.checkIfTeamScouted(team) %}
+<td class="table-success text-center">
+    <i class="bi bi-check"></i>
+</td>
+{% else %}
+<td class="table-warning text-center">
+    <i class="bi bi-x"></i>
+</td>
+{% endif %}
 {% endmacro %}

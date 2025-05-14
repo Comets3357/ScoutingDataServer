@@ -1,0 +1,67 @@
+{% from 'macros/sitewide.html' import htmlHead, navBar %}
+{% from 'macros/data_inspector_macros.html' import teamInYoutubeMatch, teamIsScouted %}
+<!DOCTYPE html> 
+<head> 
+  {{ htmlHead() }}  
+  <title>{{ match.renderEventLevel() }} {{match.matchNumber}} Preview (simple)</title>  
+</head>
+<body>
+      {{navBar()}}
+      
+      <div class="container">
+        <div class="row text-center">
+                <h3>Scouting {{ match.renderEventLevel() }} {{ match.matchNumber }} at {{ match.eventKey }}</h3>
+        </div>
+        <div class="row">
+            <table class="table table-bordered">
+                <thead>
+                    <th></th>
+                    <th scope="col" class="text-center">Red 1</th>
+                    <th scope="col" class="text-center">Red 2</th>
+                    <th scope="col" class="text-center">Red 3</th>
+                    <th scope="col" class="text-center">Blue 1</th>
+                    <th scope="col" class="text-center">Blue 2</th>
+                    <th scope="col" class="text-center">Blue 3</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="text-end">Team #</th>
+                        {{teamInYoutubeMatch(match.red1, True)}}
+                        {{teamInYoutubeMatch(match.red2, True)}}
+                        {{teamInYoutubeMatch(match.red3, True)}}
+                        {{teamInYoutubeMatch(match.blue1, False)}}
+                        {{teamInYoutubeMatch(match.blue2, False)}}
+                        {{teamInYoutubeMatch(match.blue3, False)}}
+                    </tr>
+                    <tr>
+                        <th class="text-end">Scout</th>
+                        <td>Red1Scout</td>
+                        <td>Red2Scout</td>
+                        <td>Red3Scout</td>
+                        <td>Blue1Scout</td>
+                        <td>Blue2Scout</td>
+                        <td>Blue3Scout</td>
+                    </tr>
+                    <tr>
+                        <th class="text-end">
+                            Scouted?
+                        </th>
+                        {{teamIsScouted(match, match.red1)}}
+                        {{teamIsScouted(match, match.red2)}}
+                        {{teamIsScouted(match, match.red3)}}
+                        {{teamIsScouted(match, match.blue1)}}
+                        {{teamIsScouted(match, match.blue2)}}
+                        {{teamIsScouted(match, match.blue3)}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <iframe width="420" height="315" allow="fullscreen;"
+                src="https://www.youtube.com/embed/easzxU9ADF4">
+                </iframe>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+
