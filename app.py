@@ -831,7 +831,7 @@ def setFieldSide(newEventLevel):
 from models import ActiveEventKey
 from utils import *
 from models import MatchSchedule, TeamAtEvent, SuperScoutRecord
-from models import MatchData, PitScoutRecord, TeamRecord, HumanPlayerData
+from models import MatchData, PitScoutRecord, TeamRecord
 from models.match_averages import MatchAverages
 
 with app.app_context():

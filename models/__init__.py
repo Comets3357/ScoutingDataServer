@@ -2,9 +2,14 @@ from extensions import db
 from .active_event_key import ActiveEventKey
 from .match_schedule import MatchSchedule
 from .team_at_event import TeamAtEvent
-from .data_validation import DataValidation
 from .superscoutrecord import SuperScoutRecord
 from .matchdata import MatchData
 from .pitscoutrecord import PitScoutRecord
 from .team_record import TeamRecord
-from .humanplayerdata import HumanPlayerData
+from .youtube_links import YoutubeLinks
+from .scouts import Scouts
+from .scouting_schedule import ScoutingSchedule
+from .scouts_attending import ScoutsAttending
+#from .humanplayerdata import HumanPlayerData
+#from .data_validation import DataValidation
+#from .autonomous_data import AutonomousData
